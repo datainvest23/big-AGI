@@ -90,7 +90,7 @@ export function PersonaSelector({ open, onClose, conversationId }: PersonaSelect
                         <div className="space-y-1">
                           {persona.examples.slice(0, 2).map((example, index) => (
                             <div key={index} className="text-xs text-muted-foreground bg-muted/50 rounded px-2 py-1">
-                              "{example}"
+                              &quot;{example}&quot;
                             </div>
                           ))}
                         </div>
