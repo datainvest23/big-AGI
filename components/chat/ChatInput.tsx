@@ -19,16 +19,17 @@ interface ChatInputProps {
 }
 
 export function ChatInput({ conversationId, disabled }: ChatInputProps) {
+  const { conversations, addMessage, setTyping, addBeamResult } = useChatStore()
+  const { apiKeys, chatSettings, uiState, personas } = useSettingsStore()
+
+  const conversation = conversations.find(c => c.id === conversationId)
+  
   const [input, setInput] = useState('')
   const [attachments, setAttachments] = useState<FileAttachment[]>([])
   const [isDragging, setIsDragging] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { conversations, addMessage, setTyping, addBeamResult } = useChatStore()
-  const { apiKeys, chatSettings, uiState, personas } = useSettingsStore()
-
-  const conversation = conversations.find(c => c.id === conversationId)
   if (!conversation) return null
 
   const persona = personas.find(p => p.id === conversation.persona)
