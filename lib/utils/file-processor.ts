@@ -79,14 +79,14 @@ export class FileProcessor {
 
   private static async extractPDFText(file: File): Promise<string> {
     try {
-      // Dynamic import for PDF.js to reduce bundle size
-      const pdfjsLib = await import('pdfjs-dist')
+      // Dynamic import for PDF.js to avoid SSR issues
+      const { getDocument, GlobalWorkerOptions } = await import('pdfjs-dist/legacy/build/pdf.js')
       
       // Set worker source
-      pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
+      GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 
       const arrayBuffer = await file.arrayBuffer()
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise
+      const pdf = await getDocument({ data: arrayBuffer }).promise
       
       let fullText = ''
       
