@@ -226,32 +226,6 @@ export function ChatInput({ conversationId, disabled }: ChatInputProps) {
     setAttachments(prev => prev.filter(att => att.id !== id))
   }
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(true)
-  }, [])
-
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-  }, [])
-
-  const handleDrop = useCallback(async (e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-
-    const files = e.dataTransfer.files
-    if (files.length > 0) {
-      try {
-        const processed = await FileProcessor.processFiles(files)
-        setAttachments(prev => [...prev, ...processed])
-        toast.success(`${processed.length} file(s) attached`)
-      } catch (error) {
-        toast.error('Failed to process files')
-      }
-    }
-  }, [])
-
   const getFileIcon = (type: string) => {
     if (type.startsWith('image/')) return <Image className="w-4 h-4" />
     if (type === 'application/pdf') return <FileText className="w-4 h-4" />
