@@ -78,34 +78,8 @@ export class FileProcessor {
   }
 
   private static async extractPDFText(file: File): Promise<string> {
-    try {
-      // Dynamic import for PDF.js to avoid SSR issues
-      const { getDocument, GlobalWorkerOptions } = await import('pdfjs-dist/legacy/build/pdf.js')
-      
-      // Set worker source
-      GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
-
-      const arrayBuffer = await file.arrayBuffer()
-      const pdf = await getDocument({ data: arrayBuffer }).promise
-      
-      let fullText = ''
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i)
-        const textContent = await page.getTextContent()
-        
-        const pageText = textContent.items
-          .filter((item: any) => 'str' in item)
-          .map((item: any) => item.str)
-          .join(' ')
-        
-        fullText += `Page ${i}:\n${pageText}\n\n`
-      }
-      
-      return fullText.trim()
-    } catch (error) {
-      throw new Error(`Failed to extract PDF text: ${error}`)
-    }
+    // Temporarily disabled PDF processing to avoid build issues
+    return `PDF file content extraction is temporarily disabled.\nFile: ${file.name}\nSize: ${this.formatFileSize(file.size)}`
   }
 
   private static async fileToDataUrl(file: File): Promise<string> {
