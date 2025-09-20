@@ -36,13 +36,13 @@ export function ChatMessages({ conversation }: ChatMessagesProps) {
             </p>
             <div className="space-y-1">
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-2">
-                "Explain quantum computing in simple terms"
+                &quot;Explain quantum computing in simple terms&quot;
               </div>
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-2">
-                "Help me debug this code"
+                &quot;Help me debug this code&quot;
               </div>
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-2">
-                "Create a marketing strategy"
+                &quot;Create a marketing strategy&quot;
               </div>
             </div>
           </div>
