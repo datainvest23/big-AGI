@@ -123,15 +123,11 @@ export function MessageComponent({ message, isLast, conversationId }: MessageCom
                         
                         if (!inline && language) {
                           return (
-                            <SyntaxHighlighter
-                              {...props}
-                              style={uiState.theme === 'dark' ? oneDark : oneLight}
-                              language={language}
-                              PreTag="div"
-                              className="rounded-md !mt-2 !mb-2"
-                            >
-                              {String(children).replace(/\n$/, '')}
-                            </SyntaxHighlighter>
+                            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-sm">
+                              <code className={`language-${language}`}>
+                                {String(children).replace(/\n$/, '')}
+                              </code>
+                            </pre>
                           )
                         }
                         
