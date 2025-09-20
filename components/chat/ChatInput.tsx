@@ -30,6 +30,32 @@ export function ChatInput({ conversationId, disabled }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }, [])
+
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+
+    const files = e.dataTransfer.files
+    if (files.length > 0) {
+      try {
+        const processed = await FileProcessor.processFiles(files)
+        setAttachments(prev => [...prev, ...processed])
+        toast.success(`${processed.length} file(s) attached`)
+      } catch (error) {
+        toast.error('Failed to process files')
+      }
+    }
+  }, [])
+
   if (!conversation) return null
 
   const persona = personas.find(p => p.id === conversation.persona)
