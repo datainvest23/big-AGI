@@ -40,7 +40,7 @@ export function ChatInterface() {
     } else if (!activeConversationId && conversations.length > 0) {
       setActiveConversation(conversations[0].id)
     }
-  }, [conversations.length, activeConversationId, createConversation, setActiveConversation])
+  }, [conversations.length, activeConversationId, createConversation, setActiveConversation, conversations])
 
   // Check API keys
   useEffect(() => {
