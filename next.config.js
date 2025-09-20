@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
   webpack(config, { isServer }) {
     // PDF.js worker configuration
     if (!isServer) {
